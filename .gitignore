@@ -165,3 +165,4 @@ hist
 # Ignore raw data
 data/raw_data/*.csv
 bt_course/
+data/stock_data.db

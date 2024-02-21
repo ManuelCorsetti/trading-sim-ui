@@ -2,6 +2,9 @@ import os
 from pathlib import Path
 import pandas as pd
 import sqlite3
+import yaml
+
+# with open('config.yaml')
 
 def get_data_dir() -> Path:
     """
@@ -31,12 +34,17 @@ def get_data_dir() -> Path:
         base_dir = Path(__file__).resolve().parent.parent
         return base_dir / 'data'
 
-def load_ticker_data(ticker, conn):
-    db_dir = get_data_dir() / 'stock_data.db'
+class DB:
+    def __init__(self, db_name:str = 'stock_data.db') -> None:
+        
+        db_dir = get_data_dir() / db_name
+        self.con = sqlite3.connect(db_dir)
+        
+    def run_query(self, query) -> pd.DataFrame:
+        df = pd.read_sql_query(query, con = self.con, parse_dates=['date'])
+        
+        return df
 
-    # Instantiate connection
-    conn = sqlite3.connect(db_dir)
-    query = f"SELECT * FROM STOCK_DATA WHERE ticker = '{ticker}'"
-    df = pd.read_sql_query(query, conn)
-    
-    return df
+    def load_ticker_data(self, ticker: str):
+        query = f"SELECT * FROM STOCK_DATA WHERE ticker = '{ticker}'"
+        return self.run_query(query)

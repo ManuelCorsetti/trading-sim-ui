@@ -2,7 +2,8 @@ import unittest
 from unittest.mock import patch
 from pathlib import Path
 import os
-from src.utils import get_data_dir
+import sqlite3
+from src.utils import get_data_dir, DB
 
 
 class TestDataDirFunction(unittest.TestCase):
@@ -32,5 +33,13 @@ class TestDataDirFunction(unittest.TestCase):
 
     # Additional tests for environment variable scenarios can be added here
 
+class TestDBClass(unittest.TestCase):
+    
+    def setUp(self):
+        self.DB = DB()
+        
+    def test_connection_exists(self):
+        self.assertIsInstance(self.DB.con, sqlite3.Connection)
+    
 if __name__ == '__main__':
     unittest.main()
