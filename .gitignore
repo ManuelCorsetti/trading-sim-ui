@@ -166,3 +166,4 @@ hist
 data/raw_data/*.csv
 bt_course/
 data/stock_data.db
+reports/SmaCross.html
