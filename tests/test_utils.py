@@ -22,24 +22,26 @@ class TestDataDirFunction(unittest.TestCase):
     def test_returns_correct_data_directory(self):
         """Test that the returned path ends with 'data' directory."""
         data_dir = get_data_dir()
-        self.assertTrue(str(data_dir).endswith('data'))
+        self.assertTrue(str(data_dir).endswith("data"))
 
-    @patch.dict(os.environ, {'MY_PROJECT_DATA_DIR': '/tmp/test_data_dir'})
+    @patch.dict(os.environ, {"MY_PROJECT_DATA_DIR": "/tmp/test_data_dir"})
     def test_uses_environment_variable_if_set(self):
         """Test that the function uses the path from an environment variable when set."""
-        expected_path = Path('/tmp/test_data_dir')
+        expected_path = Path("/tmp/test_data_dir")
         data_dir = get_data_dir()
         self.assertEqual(data_dir, expected_path)
 
     # Additional tests for environment variable scenarios can be added here
 
+
 class TestDBClass(unittest.TestCase):
-    
+
     def setUp(self):
         self.DB = DB()
-        
+
     def test_connection_exists(self):
         self.assertIsInstance(self.DB.con, sqlite3.Connection)
-    
-if __name__ == '__main__':
+
+
+if __name__ == "__main__":
     unittest.main()

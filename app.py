@@ -9,6 +9,7 @@ from pandas.api.types import (
     is_object_dtype,
 )
 
+
 def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     """
     Adds a UI on top of a dataframe to let viewers filter columns
@@ -65,16 +66,16 @@ def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
                 )
                 df = df[df[column].between(*user_num_input)]
             elif is_datetime64_any_dtype(df[column]):
-                user_date_input = right.date_input(
+                user_dt_input = right.date_input(
                     f"Values for {column}",
                     value=(
                         df[column].min(),
                         df[column].max(),
                     ),
                 )
-                if len(user_date_input) == 2:
-                    user_date_input = tuple(map(pd.to_datetime, user_date_input))
-                    start_date, end_date = user_date_input
+                if len(user_dt_input) == 2:
+                    user_dt_input = tuple(map(pd.to_datetime, user_dt_input))
+                    start_date, end_date = user_dt_input
                     df = df.loc[df[column].between(start_date, end_date)]
             else:
                 user_text_input = right.text_input(
@@ -85,12 +86,13 @@ def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
+
 st.title("Simple Trading Simulator")
 "Use the table below as reference to find the ticker names for your chosen stocks."
 
 # Load Tickers
-tickers = pd.read_csv("./data/ticker_names/nasdaq-symbols.txt", sep='\t')
-tickers_list = tickers['Symbol'].tolist()
+tickers = pd.read_csv("./data/ticker_names/nasdaq-symbols.txt", sep="\t")
+tickers_list = tickers["Symbol"].tolist()
 
 st.dataframe(filter_dataframe(tickers))
 
@@ -102,7 +104,7 @@ selected_ticker = st.multiselect("Select Tickers", tickers_list)
 investment_amount = {}
 for ticker in selected_ticker:
     investment_amount[ticker] = st.text_input(f"$ {ticker}", "")
-    
+
 # Enter Stock Value
 value = st.number_input("Enter Stock Value", min_value=1)
 
@@ -111,26 +113,28 @@ value = st.number_input("Enter Stock Value", min_value=1)
 col1, col2 = st.columns(2)
 
 with col1:
-    start_date = st.date_input("Trading Start Date", value=dt.date.today() - dt.timedelta(days=365))
+    start_date = st.date_input(
+        "Trading Start Date", value=dt.date.today() - dt.timedelta(days=365)
+    )
 
 with col2:
     end_date = st.date_input("Trading End Date", value=dt.date.today())
 
 # Get Stock Data and Calculate Profit
 data = yf.download(selected_ticker, start=start_date, end=end_date)
-start_price = data.iloc[0]['Close']
-end_price = data.iloc[-1]['Close']
+start_price = data.iloc[0]["Close"]
+end_price = data.iloc[-1]["Close"]
 
 profit = (end_price - start_price) * value
 st.write(profit)
 profit_pct = profit / (start_price * value)
 # Visualize Profit
-st.line_chart(data['Close'])
+st.line_chart(data["Close"])
 st.write(f"Overall profit: {(profit):.2f}")
 st.write(f"Overall profit (%): {profit_pct:.2%}")
 
 # Visualize File Profits
 if st.button("Generate Profit File"):
     profit_df = pd.DataFrame([{"ticker": selected_ticker, "profit": profit}])
-    profit_df.to_csv('profits.csv', index=False)
-    st.success('Profit file has been generated!')
+    profit_df.to_csv("profits.csv", index=False)
+    st.success("Profit file has been generated!")

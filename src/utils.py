@@ -6,13 +6,14 @@ import yaml
 
 # with open('config.yaml')
 
+
 def get_data_dir() -> Path:
     """
     Retrieves the absolute path to the data directory.
 
     This function first checks for an environment variable 'MY_PROJECT_DATA_DIR' to determine the path to the data directory.
     If the environment variable is set, it uses this value as the path, ensuring it is converted to a Path object before returning.
-    If the environment variable is not set, the function calculates the path based on the assumption that the data directory is 
+    If the environment variable is not set, the function calculates the path based on the assumption that the data directory is
     located two levels up from the current file and then under a directory named 'data'.
 
     Returns:
@@ -27,22 +28,23 @@ def get_data_dir() -> Path:
         data_dir_path = get_data_dir()
         print(data_dir_path)  # Outputs: Path object representing the data directory's absolute path
     """
-    env_path = os.getenv('MY_PROJECT_DATA_DIR')
+    env_path = os.getenv("MY_PROJECT_DATA_DIR")
     if env_path:
         return Path(env_path)
     else:
         base_dir = Path(__file__).resolve().parent.parent
-        return base_dir / 'data'
+        return base_dir / "data"
+
 
 class DB:
-    def __init__(self, db_name:str = 'stock_data.db') -> None:
-        
+    def __init__(self, db_name: str = "stock_data.db") -> None:
+
         db_dir = get_data_dir() / db_name
         self.con = sqlite3.connect(db_dir)
-        
+
     def run_query(self, query) -> pd.DataFrame:
-        df = pd.read_sql_query(query, con = self.con, parse_dates=['date'])
-        
+        df = pd.read_sql_query(query, con=self.con, parse_dates=["date"])
+
         return df
 
     def load_ticker_data(self, ticker: str):

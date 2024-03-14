@@ -5,8 +5,8 @@ from utils import get_data_dir
 
 
 data_dir = get_data_dir()
-db_dir = data_dir / 'stock_data.db'
-tickers_dir = data_dir / 'raw_data'
+db_dir = data_dir / "stock_data.db"
+tickers_dir = data_dir / "raw_data"
 # Connect to SQLite database (this will create the database file if it does not exist)
 conn = sqlite3.connect(db_dir)
 
@@ -14,7 +14,8 @@ conn = sqlite3.connect(db_dir)
 cur = conn.cursor()
 # cur.execute("DROP TABLE IF EXISTS daily_ohlcv")
 # Create table
-cur.execute('''
+cur.execute(
+    """
     CREATE TABLE IF NOT EXISTS daily_ohlcv (
         ticker TEXT NOT NULL,
         date TEXT NOT NULL,
@@ -26,18 +27,19 @@ cur.execute('''
         volume INTEGER NOT NULL,
         PRIMARY KEY (ticker, date)
     )
-''')
+"""
+)
 
 conn.commit()
 
 for filename in os.listdir(tickers_dir):
-    if filename.endswith('.csv'):
+    if filename.endswith(".csv"):
         filepath = os.path.join(tickers_dir, filename)
-        ticker = filename.replace('.csv', '')
+        ticker = filename.replace(".csv", "")
         df = pd.read_csv(filepath)
-        df.rename(columns={'Adj Close':'adj_close'}, inplace=True)
-        df['ticker'] = ticker  # Add ticker column
-        
+        df.rename(columns={"Adj Close": "adj_close"}, inplace=True)
+        df["ticker"] = ticker  # Add ticker column
+
         # Convert DataFrame to SQL
-        df.to_sql('daily_ohlcv', conn, if_exists='append', index=False)
+        df.to_sql("daily_ohlcv", conn, if_exists="append", index=False)
         print(ticker)

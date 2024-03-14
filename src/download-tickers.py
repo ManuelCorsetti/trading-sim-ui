@@ -5,8 +5,8 @@ script_path = os.path.abspath(__file__)
 
 script_dir = os.path.dirname(script_path)
 parent_dir = os.path.dirname(script_dir)
-data_dir = os.path.join(parent_dir, 'data')
-sp500_path = os.path.join(data_dir, 'sp500.csv')
+data_dir = os.path.join(parent_dir, "data/ticker_names")
+sp500_path = os.path.join(data_dir, "sp500.csv")
 
 sp500 = pd.read_csv(sp500_path)
 
@@ -30,9 +30,9 @@ print(sp500.columns)
 
 # table_data = []
 
-# for row in table.find_all('tr'):    
+# for row in table.find_all('tr'):
 #     table_data.append([cell.text.strip() for cell in row.find_all('td')])
-    
+
 # df = pd.DataFrame(table_data, columns=headers)
 # df.dropna(how='all', inplace=True)
 # df.set_index("No.", inplace=True)

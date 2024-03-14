@@ -5,15 +5,25 @@ from src.metrics import sharpe_ratio
 from src.strategy import create_weighted_balance_backtest, equal_weight_backtest
 
 # Define variables
-stocks = ['AAPL', 'GOOG']  # Define your stock symbols
+stocks = ["AAPL", "GOOG"]  # Define your stock symbols
 
 # Fetch or simulate your `prices` DataFrame here
 data = yf.download(stocks, start="2010-01-01", end="2024-01-01")
-prices = data['Adj Close'].resample('MS').first()
+prices = data["Adj Close"].resample("MS").first()
 
 
 # Calculate sharpe ratio for each stock
-periods = 6
+periods = 12
+
+
+def create_input_datasets(prices, periods=12):
+    returns = prices.pct_change(periods=periods).dropna()
+    sharpe = sharpe_ratio(returns, periods=periods)
+    weight_input = sharpe.dropna()
+    data_input = prices.loc[weight_input.index.dropna()]
+    return data_input, weight_input
+
+
 returns = prices.pct_change(periods=periods).dropna()
 sharpe = sharpe_ratio(returns, periods=periods)
 weight_input = sharpe.dropna()
@@ -32,7 +42,7 @@ s_base = equal_weight_backtest(data_input)
 combined_result = bt.run(s1, s_base)
 
 # Plotting cumulative returns to compare strategies
-combined_result.plot(title='Strategy Comparison: Cumulative Returns')
+combined_result.plot(title="Strategy Comparison: Cumulative Returns")
 
 # Displaying quantitative metrics
 combined_result.display()
