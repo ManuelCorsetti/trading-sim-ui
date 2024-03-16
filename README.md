@@ -6,7 +6,9 @@ A **very** simple trading simulator environment in streamlit. It should allow a 
 3. Set trading start time
 4. Trading end time
 5. Visualize overall profits over period
-6. Visualize filen profits
+6. Visualize final profits
+
+
 
 # MVP
 1. Use `bt` for backtesting

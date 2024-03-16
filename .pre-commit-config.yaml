@@ -5,6 +5,32 @@ repos:
       - id: black
         language_version: python3.11
 
+  - repo: local
+    hooks:
+      - id: pytest
+        name: Run pytest
+        entry: python -m pytest tests/
+        language: system
+        always_run: true
+        files: '^tests/.*\.py$'
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 4.0.1  # Use the latest revision
+    hooks:
+      - id: flake8
+        # To not hard enforce, you can use `warn: true`
+        warn: true
+
+  - repo: local
+    hooks:
+      - id: pylint
+        name: Run pylint  # Add a descriptive name for the hook
+        entry: pylint  # Specify how to run pylint, adjust as necessary
+        language: system
+        files: \.py$  # Run on Python files
+
+
+
   # - repo: https://github.com/timothycrosley/isort
   #   rev: 5.6.4
   #   hooks:
@@ -25,15 +51,6 @@ repos:
   #   rev: v0.782
   #   hooks:
   #     - id: mypy
-
-  - repo: local
-    hooks:
-      - id: pytest
-        name: Run pytest
-        entry: python -m pytest tests/
-        language: system
-        always_run: true
-        files: '^tests/.*\.py$'
 
       # - id: safety
       #   name: safety
