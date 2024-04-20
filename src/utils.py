@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 import pandas as pd
 import sqlite3
-import yaml
 
 # with open('config.yaml')
 
@@ -50,3 +49,21 @@ class DB:
     def load_ticker_data(self, ticker: str):
         query = f"SELECT * FROM STOCK_DATA WHERE ticker = '{ticker}'"
         return self.run_query(query)
+
+import pickle
+
+def convert_to_pickle(obj, file_path):
+    """
+    This function takes an object and a file path, then serializes the object
+    and saves it to a pickle file at the specified file path.
+
+    :param obj: The object to be pickled (serialized).
+    :param file_path: The path of the file where the object will be saved.
+    """
+    with open(file_path, 'wb') as file:
+        pickle.dump(obj, file)
+        print(f"Object successfully pickled to {file_path}")
+
+# Example usage:
+# my_object = {'key': 'value', 'number': 42}
+# convert_to_pickle(my_object, 'my_object.pkl')

@@ -1,5 +1,3 @@
-# Trading Strategy
-
 # Trading Strategy Project
 
 ## Order of Calculation Execution:
@@ -9,7 +7,7 @@
 3. Repeat for all S&P500 stocks.
 4. Pick top 30 stocks where the correlation of the portfolio is less than the threshold.
 5. Invest the stock according to the weights wanted (set all weights to begin with).
-   - Show how much money is in cash vs invested in each stock as a simple % of value vertical bar chart ![Bar Chart](path/to/bar-chart-image.png).
+   - Show how much money is in cash vs invested in each stock as a simple % of value vertical bar chart.
 6. Store the object & the json (possibly to table?) in a SQL database for ease of querying.
 7. Emphasize the performance of the various strategies with special attention paid to the performance metrics:
    - Returns (%)
@@ -18,7 +16,7 @@
    - Median yearly return
    - Volatility of the performance of the portfolio.
 
-```
+```python
 ########## Choose the best 30 tickers
 ticker_list = get_ticker_list()
 sharpe = {}
