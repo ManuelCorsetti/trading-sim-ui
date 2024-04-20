@@ -50,7 +50,9 @@ class DB:
         query = f"SELECT * FROM STOCK_DATA WHERE ticker = '{ticker}'"
         return self.run_query(query)
 
+
 import pickle
+
 
 def convert_to_pickle(obj, file_path):
     """
@@ -60,9 +62,10 @@ def convert_to_pickle(obj, file_path):
     :param obj: The object to be pickled (serialized).
     :param file_path: The path of the file where the object will be saved.
     """
-    with open(file_path, 'wb') as file:
+    with open(file_path, "wb") as file:
         pickle.dump(obj, file)
         print(f"Object successfully pickled to {file_path}")
+
 
 # Example usage:
 # my_object = {'key': 'value', 'number': 42}
