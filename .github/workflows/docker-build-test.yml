@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Build Docker image
-      run: docker build -t trading-app:latest .
+      run: docker build -f poc_app/dockerfile -t trading-app:latest .
 
     - name: Run Docker container
       run: docker run -d --name trading-app -p 8501:8501 trading-app:latest
