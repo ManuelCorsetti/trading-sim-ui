@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - poc-visualize-strategy-app
   pull_request:
     branches:
       - main
@@ -20,7 +21,7 @@ jobs:
       run: docker build -f poc_app/dockerfile -t trading-app:latest .
 
     - name: Run Docker container
-      run: docker run -d --name trading-app -p 8501:8501 trading-app:latest
+      run: docker run -d -p 8501:8501 trading-app:latest
 
     - name: Check application
       run: |

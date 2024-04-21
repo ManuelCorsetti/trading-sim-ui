@@ -2,7 +2,7 @@
 import streamlit as st
 from pages import landing, result
 
-st.set_page_config(page_title="POC: Visualize Strategy Performance", page_icon="📈")
+# st.set_page_config(page_title="POC: Visualize Strategy Performance", page_icon="📈")
 
 
 PAGES = {
@@ -10,7 +10,7 @@ PAGES = {
     "Results": result,
 }
 
-# st.sidebar.title('Navigation')
+st.sidebar.title('Navigation')
 # selection = st.sidebar.radio("Go to", list(PAGES.keys()))
 
 # page = PAGES[selection]
