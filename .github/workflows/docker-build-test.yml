@@ -1,0 +1,29 @@
+name: Docker Build and Test Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Build Docker image
+      run: docker build -t trading-app:latest .
+
+    - name: Run Docker container
+      run: docker run -d --name trading-app -p 8501:8501 trading-app:latest
+
+    - name: Check application
+      run: |
+        for i in {1..5}; do
+          curl -f http://localhost:8501 && break || sleep 5
+        done
