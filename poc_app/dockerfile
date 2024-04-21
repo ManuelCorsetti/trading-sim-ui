@@ -18,8 +18,7 @@ RUN poetry config virtualenvs.create false \
 COPY . /app/
 
 # Command to run on container start
-# CMD ["poetry", "run", "streamlit", "run", "app.py"]
-CMD ["poetry", "run", "streamlit", "run", "app.py""]
+CMD ["poetry", "run", "streamlit", "run", "app.py"]
 
 
 # Expose the port the app runs on
