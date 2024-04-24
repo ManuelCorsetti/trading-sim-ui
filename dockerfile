@@ -8,14 +8,15 @@ WORKDIR /app
 RUN pip install --no-cache-dir poetry
 
 # Copy only requirements to cache them in docker layer
-COPY poc_app/pyproject.toml poc_app/poetry.lock* /app/
+COPY pyproject.toml poetry.lock* ./
 
 # Project initialization:
 RUN poetry config virtualenvs.create false \
   && poetry install --no-interaction --no-ansi
 
 # Copying the rest of the application
-COPY poc_app/. /app/
+# copy the app.py file
+COPY . .
 
 # Command to run on container start
 CMD ["poetry", "run", "streamlit", "run", "app.py"]

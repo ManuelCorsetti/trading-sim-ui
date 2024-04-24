@@ -1,0 +1,40 @@
+# Version control systems
+.git/
+.github/
+.gitignore
+
+# Development tools configurations
+.idea/
+.vscode/
+.ipynb_checkpoints/
+
+# Python environments
+.venv/
+__pycache__/
+.pytest_cache/
+
+# Project documentation and notes
+*.md
+LICENSE
+README.md
+
+# Jupyter notebooks
+*.ipynb
+
+# Data directory (if it's large or sensitive)
+# data/
+
+# Docker and build files
+.dockerignore
+*dockerfile
+
+# Temporary or local files
+temp*
+draft.ipynb
+
+# Specific files and directories (according to need)
+notebooks/
+images/
+reports/
+tests/
+bt_course/
