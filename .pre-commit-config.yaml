@@ -9,7 +9,7 @@ repos:
     hooks:
       - id: pytest
         name: Run pytest
-        entry: python -m pytest tests/
+        entry: poetry run pytest tests/
         language: system
         always_run: true
         files: '^tests/.*\.py$'
@@ -25,7 +25,7 @@ repos:
     hooks:
       - id: pylint
         name: Run pylint  # Add a descriptive name for the hook
-        entry: pylint  # Specify how to run pylint, adjust as necessary
+        entry: poetry run pylint  # Specify how to run pylint, adjust as necessary
         language: system
         files: \.py$  # Run on Python files
 

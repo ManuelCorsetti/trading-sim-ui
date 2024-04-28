@@ -1,22 +1,21 @@
 [tool.poetry]
-name = "fin-app"
+name = "trading-strategy"
 version = "0.1.0"
 description = ""
 authors = ["ManuelCorsetti <42147538+ManuelCorsetti@users.noreply.github.com>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
-pandas = "^2.2.2"
-streamlit = "^1.33.0"
-pylint = "^3.1.0"
-black = "^24.4.1"
 bt = "^1.0.0"
+streamlit = "^1.33.0"
+black = "^24.4.2"
+pytest = "^8.2.0"
+flake8 = "^7.0.0"
+pylint = "^3.1.0"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-# Disable package mode
-package-mode = false
